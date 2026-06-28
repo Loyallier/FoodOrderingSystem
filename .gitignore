@@ -1,0 +1,13 @@
+bin/
+build/
+target/
+*.class
+*.war
+
+.metadata/
+Servers/
+
+.DS_Store
+Thumbs.db
+
+db.properties
