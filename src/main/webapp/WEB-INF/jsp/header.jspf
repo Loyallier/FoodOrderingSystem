@@ -23,12 +23,8 @@ int cartCount = navCart == null ? 0 : navCart.getTotalQuantity();
       <a href="<%= ctx %>/menu">Menu</a>
       <a href="<%= ctx %>/cart">Cart (<%= cartCount %>)</a>
       <a href="<%= ctx %>/orders/history">Orders</a>
-      <a href="<%= ctx %>/about">About</a>
-      <a href="<%= ctx %>/faq">FAQ</a>
-      <a href="<%= ctx %>/contact">Contact</a>
       <% if (currentUser == null) { %>
         <a href="<%= ctx %>/login">Login</a>
-        <a href="<%= ctx %>/register">Register</a>
       <% } else { %>
         <% if (currentUser.isAdmin()) { %>
           <a href="<%= ctx %>/admin/dashboard">Admin</a>
