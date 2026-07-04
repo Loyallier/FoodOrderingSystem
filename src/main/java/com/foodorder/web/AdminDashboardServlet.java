@@ -1,0 +1,26 @@
+package com.foodorder.web;
+
+import java.io.IOException;
+
+import com.foodorder.store.AppStore;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet("/admin/dashboard")
+public class AdminDashboardServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if (!WebUtil.requireAdmin(request, response)) {
+            return;
+        }
+        request.setAttribute("adminFoodList", AppStore.listFoods(false));
+        request.setAttribute("adminCategoryList", AppStore.listCategories(false));
+        request.setAttribute("globalOrderList", AppStore.listAllOrders());
+        WebUtil.forward(request, response, "admin/dashboard.jsp");
+    }
+}
