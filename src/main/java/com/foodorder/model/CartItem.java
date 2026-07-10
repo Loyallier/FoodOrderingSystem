@@ -3,6 +3,7 @@ package com.foodorder.model;
 import java.math.BigDecimal;
 
 public class CartItem {
+    private String lineId;
     private int foodId;
     private String foodName;
     private String imageUrl;
@@ -12,6 +13,11 @@ public class CartItem {
     private BigDecimal addonPrice;
 
     public CartItem(Food food, int quantity, String addons, BigDecimal addonPrice) {
+        this(food.getFoodId() + "|" + (addons == null ? "" : addons.trim()), food, quantity, addons, addonPrice);
+    }
+
+    public CartItem(String lineId, Food food, int quantity, String addons, BigDecimal addonPrice) {
+        this.lineId = lineId;
         this.foodId = food.getFoodId();
         this.foodName = food.getFoodName();
         this.imageUrl = food.getImageUrl();
@@ -19,6 +25,10 @@ public class CartItem {
         this.quantity = quantity;
         this.addons = addons == null ? "" : addons;
         this.addonPrice = addonPrice == null ? BigDecimal.ZERO : addonPrice;
+    }
+
+    public String getLineId() {
+        return lineId;
     }
 
     public int getFoodId() {

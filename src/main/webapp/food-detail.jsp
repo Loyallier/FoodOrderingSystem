@@ -15,7 +15,7 @@ request.setAttribute("pageTitle", food.getFoodName() + " - Food Detail");
     <p><strong>Nutrition:</strong> <%= food.getNutrition() %></p>
     <p><span class="price">RM <%= food.getPrice() %></span> <span class="rating">Rating <%= food.getRating() %> / <%= food.getReviewCount() %> reviews</span></p>
 
-    <form class="form" action="<%= ctx %>/cart" method="post" onsubmit="return validateQuantity(this)">
+    <form class="form" action="<%= ctx %>/CartServlet" method="post" onsubmit="return validateQuantity(this)">
       <input type="hidden" name="action" value="add">
       <input type="hidden" name="foodId" value="<%= food.getFoodId() %>">
       <div class="field">

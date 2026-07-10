@@ -24,6 +24,14 @@ public class Food {
     public Food(int foodId, String foodName, int categoryId, String categoryName, String description,
             String ingredients, String nutrition, BigDecimal price, double rating, int reviewCount,
             String imageUrl, boolean available, boolean featured, boolean popular) {
+        this(foodId, foodName, categoryId, categoryName, description, ingredients, nutrition, price, rating,
+                reviewCount, imageUrl, available, featured, popular, LocalDateTime.now(), LocalDateTime.now());
+    }
+
+    public Food(int foodId, String foodName, int categoryId, String categoryName, String description,
+            String ingredients, String nutrition, BigDecimal price, double rating, int reviewCount,
+            String imageUrl, boolean available, boolean featured, boolean popular, LocalDateTime createdAt,
+            LocalDateTime updatedAt) {
         this.foodId = foodId;
         this.foodName = foodName;
         this.categoryId = categoryId;
@@ -38,8 +46,8 @@ public class Food {
         this.available = available;
         this.featured = featured;
         this.popular = popular;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+        this.createdAt = createdAt == null ? LocalDateTime.now() : createdAt;
+        this.updatedAt = updatedAt == null ? this.createdAt : updatedAt;
     }
 
     public int getFoodId() {

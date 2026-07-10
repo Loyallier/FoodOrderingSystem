@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/cart")
+@WebServlet({ "/cart", "/CartServlet", "/UpdateCartServlet" })
 public class CartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -36,6 +36,10 @@ public class CartServlet extends HttpServlet {
         String action = request.getParameter("action");
         Cart cart = WebUtil.cart(request);
         int foodId = WebUtil.intParam(request, "foodId", 0);
+        String lineId = request.getParameter("lineId");
+        if ((lineId == null || lineId.isBlank()) && foodId > 0) {
+            lineId = foodId + "|";
+        }
 
         if ("add".equals(action)) {
             int quantity = WebUtil.intParam(request, "quantity", 1);
@@ -52,13 +56,13 @@ public class CartServlet extends HttpServlet {
 
         if ("update".equals(action)) {
             int quantity = WebUtil.intParam(request, "quantity", 1);
-            cart.updateQuantity(foodId, quantity);
+            cart.updateQuantity(lineId, quantity);
             WebUtil.redirectWithMessage(request, response, "/cart", "success", "Cart updated successfully.");
             return;
         }
 
         if ("remove".equals(action)) {
-            cart.removeItem(foodId);
+            cart.removeItem(lineId);
             WebUtil.redirectWithMessage(request, response, "/cart", "success", "Item removed from cart.");
             return;
         }

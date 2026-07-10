@@ -13,7 +13,7 @@ List<Category> adminCategoryList = (List<Category>) request.getAttribute("adminC
   <a class="btn secondary" href="<%= ctx %>/admin/orders">Orders</a>
 </div>
 
-<form class="form wide" action="<%= ctx %>/admin/foods" method="post">
+<form class="form wide" action="<%= ctx %>/AdminSaveFoodServlet" method="post" enctype="multipart/form-data">
   <h2>Add / Update Food</h2>
   <input type="hidden" name="action" value="save">
   <div class="split">
@@ -60,6 +60,10 @@ List<Category> adminCategoryList = (List<Category>) request.getAttribute("adminC
         <label>Image URL</label>
         <input name="imageUrl" value="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80">
       </div>
+      <div class="field">
+        <label>Food Image</label>
+        <input name="foodImage" type="file" accept="image/*">
+      </div>
       <label><input type="checkbox" name="isAvailable" checked style="width:auto;min-height:auto;"> Available</label>
       <label><input type="checkbox" name="isFeatured" style="width:auto;min-height:auto;"> Featured</label>
       <label><input type="checkbox" name="isPopular" style="width:auto;min-height:auto;"> Popular</label>
@@ -92,11 +96,7 @@ List<Category> adminCategoryList = (List<Category>) request.getAttribute("adminC
           <td><%= food.getRating() %></td>
           <td><%= food.isAvailable() ? "Available" : "Disabled" %></td>
           <td>
-            <form action="<%= ctx %>/admin/foods" method="post">
-              <input type="hidden" name="action" value="disable">
-              <input type="hidden" name="foodId" value="<%= food.getFoodId() %>">
-              <button class="btn danger" type="submit">Disable</button>
-            </form>
+            <a class="btn danger" href="<%= ctx %>/AdminDeleteFoodServlet?foodId=<%= food.getFoodId() %>">Disable</a>
           </td>
         </tr>
       <% } %>

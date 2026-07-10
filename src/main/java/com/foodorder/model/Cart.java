@@ -6,30 +6,31 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Cart {
-    private final Map<Integer, CartItem> items = new LinkedHashMap<>();
+    private final Map<String, CartItem> items = new LinkedHashMap<>();
 
     public void addItem(Food food, int quantity, String addons, BigDecimal addonPrice) {
-        CartItem existing = items.get(food.getFoodId());
+        String lineId = lineId(food.getFoodId(), addons);
+        CartItem existing = items.get(lineId);
         if (existing == null) {
-            items.put(food.getFoodId(), new CartItem(food, quantity, addons, addonPrice));
+            items.put(lineId, new CartItem(lineId, food, quantity, addons, addonPrice));
         } else {
             existing.setQuantity(existing.getQuantity() + quantity);
         }
     }
 
-    public void updateQuantity(int foodId, int quantity) {
+    public void updateQuantity(String lineId, int quantity) {
         if (quantity <= 0) {
-            items.remove(foodId);
+            items.remove(lineId);
             return;
         }
-        CartItem item = items.get(foodId);
+        CartItem item = items.get(lineId);
         if (item != null) {
             item.setQuantity(quantity);
         }
     }
 
-    public void removeItem(int foodId) {
-        items.remove(foodId);
+    public void removeItem(String lineId) {
+        items.remove(lineId);
     }
 
     public void clear() {
@@ -52,5 +53,9 @@ public class Cart {
         return items.values().stream()
                 .map(CartItem::getSubtotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    private String lineId(int foodId, String addons) {
+        return foodId + "|" + (addons == null ? "" : addons.trim());
     }
 }

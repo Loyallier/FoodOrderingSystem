@@ -17,13 +17,18 @@ public class User {
     private LocalDateTime createdAt;
 
     public User(int userId, String username, String email, String phoneNumber, String password, Role role) {
+        this(userId, username, email, phoneNumber, password, role, LocalDateTime.now());
+    }
+
+    public User(int userId, String username, String email, String phoneNumber, String password, Role role,
+            LocalDateTime createdAt) {
         this.userId = userId;
         this.username = username;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.role = role;
-        this.createdAt = LocalDateTime.now();
+        this.createdAt = createdAt == null ? LocalDateTime.now() : createdAt;
     }
 
     public int getUserId() {
