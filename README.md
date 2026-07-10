@@ -156,7 +156,7 @@ Coursework-compatible Servlet aliases are also registered:
 /CheckoutServlet
 /AdminMenuServlet
 /AdminSaveFoodServlet
-/AdminDeleteFoodServlet
+/AdminRemoveFoodServlet
 /AdminOrderServlet
 ```
 
@@ -195,7 +195,7 @@ FoodOrderingSystem/
 - `AppStore.java`: facade used by Servlets; hides DAO details so controllers call simple methods such as `listFoods`, `createOrder`, and `authenticate`.
 - `DbUtil.java`: creates JDBC connections from `db.properties`.
 - `UserDao.java`: handles user registration, login lookup, uniqueness checks, and user listing.
-- `CategoryDao.java`: handles category creation, lookup, listing, and disabling.
+- `CategoryDao.java`: handles category creation, editing, lookup, listing, and deletion.
 - `FoodDao.java`: handles menu item CRUD, filtering, featured foods, popular foods, and food lookup.
 - `OrderDao.java`: writes orders and order items in one transaction, loads order history, and updates order status.
 - `PasswordUtil.java`: hashes passwords with SHA-256 and supports legacy plain-text matching.
@@ -213,8 +213,8 @@ FoodOrderingSystem/
 - `CheckoutServlet.java`: validates checkout data, persists the order, clears the cart, and forwards to `orderSuccess.jsp`.
 - `OrderHistoryServlet.java`: loads the current user's past orders.
 - `AdminDashboardServlet.java`: loads admin overview data for foods, categories, and orders.
-- `AdminFoodServlet.java`: handles admin food listing, save/update, image upload, and disabling.
-- `AdminCategoryServlet.java`: handles admin category listing, creation, and disabling.
+- `AdminFoodServlet.java`: handles admin food listing, add/edit, image upload, and deletion.
+- `AdminCategoryServlet.java`: handles admin category listing, add/edit, and deletion.
 - `AdminOrderServlet.java`: loads all customer orders and updates order status.
 - `StaticPageServlet.java`: routes static pages such as About, FAQ, and Contact.
 - `WebUtil.java`: shared helper for forwarding, redirects, session user/cart access, parameter parsing, and add-on pricing.
@@ -236,8 +236,8 @@ FoodOrderingSystem/
 - `faq.jsp`: static Q&A page.
 - `contact.jsp`: static contact page with frontend-only thank-you alert.
 - `admin/dashboard.jsp`: admin overview page.
-- `admin/foods.jsp`: admin food CRUD page.
-- `admin/categories.jsp`: admin category management page.
+- `admin/foods.jsp`: admin food add/edit/delete page.
+- `admin/categories.jsp`: admin category add/edit/delete page.
 - `admin/orders.jsp`: admin customer order management page.
 - `WEB-INF/jsp/header.jspf`: shared page header and navigation.
 - `WEB-INF/jsp/footer.jspf`: shared footer.
@@ -264,6 +264,72 @@ Important session/request names:
 - `requestScope.globalOrderList`: admin order table data.
 - `requestScope.orderId`, `estimatedTime`, `finalAmount`: checkout receipt data.
 
+## JavaScript Input Validation
+
+Client-side validation is implemented in:
+
+```
+src/main/webapp/assets/js/app.js
+```
+
+The JavaScript validation is used together with Servlet-side validation. The browser checks common input mistakes before submitting, while the Servlet still performs the final validation before changing data or writing to the database.
+
+| Page / Form | JSP | JavaScript validation |
+|---|---|---|
+| Login | `login.jsp` | Username/email and password are required. |
+| Register | `register.jsp` | Username is required and must be 3-20 characters. Email format, phone format, and password length are checked. |
+| Menu quick add | `menu.jsp` | Quantity is checked before adding to cart. |
+| Food detail add to cart | `food-detail.jsp` | Quantity must be a whole number of at least 1. |
+| Cart update | `cart.jsp` | Quantity must be a whole number of at least 1. |
+| Checkout | `checkout.jsp` | Delivery address, contact phone, and payment method are required. Phone format is checked. |
+| Contact | `home.jsp`, `contact.jsp` | Name, email, message, and contact-page subject are required. Email and optional phone format are checked. |
+| Admin food add/edit | `admin/foods.jsp` | Food name, category, price, rating, description, ingredients, and nutrition are required. Price must be greater than 0, rating must be 0-5, image URL must be http/https, and uploaded file must be an image. |
+| Admin category add/edit | `admin/categories.jsp` | Category name and description are required. |
+
+Delete buttons and admin order status buttons submit hidden IDs/actions only. They keep confirmation prompts where needed instead of field validation.
+
+## UI Fixes
+
+Dropdown text is set to black for readability:
+
+```css
+select,
+select option {
+  background: #fff;
+  color: #111;
+}
+```
+
+## Coursework Requirement Check
+
+The coursework description requires a simple web application using HTML, CSS, JavaScript, Servlet, and JSP knowledge. This project covers those requirements as follows:
+
+| Requirement | Status | Location |
+|---|---|---|
+| HTML | Covered | Rendered by JSP pages. |
+| CSS | Covered | `src/main/webapp/assets/css/app.css` |
+| JavaScript | Covered | `src/main/webapp/assets/js/app.js` |
+| Servlet | Covered | `src/main/java/com/foodorder/web/*Servlet.java` |
+| JSP | Covered | `src/main/webapp/*.jsp`, `src/main/webapp/admin/*.jsp` |
+| Java EE web project structure | Covered | Eclipse Dynamic Web Project structure, `WEB-INF/web.xml`, Tomcat/Jakarta Servlet setup |
+| Customer registration | Covered | `register.jsp`, `RegisterServlet.java` |
+| Customer login/logout | Covered | `login.jsp`, `LoginServlet.java`, `LogoutServlet.java` |
+| Session login state | Covered | `WebUtil.currentUser()`, `header.jspf` |
+| Menu browsing | Covered | `menu.jsp`, `MenuServlet.java` |
+| Category filtering | Covered | `menu.jsp`, `FoodDao.listByCategory()` |
+| Food details | Covered | `food-detail.jsp`, `FoodDetailServlet.java` |
+| Quantity and add-ons | Covered | `food-detail.jsp`, `CartServlet.java`, `WebUtil.addonPrice()` |
+| Cart add/update/remove | Covered | `cart.jsp`, `CartServlet.java` |
+| Checkout | Covered | `checkout.jsp`, `CheckoutServlet.java` |
+| Order persistence | Covered | `OrderDao.java` |
+| Order history | Covered | `order-history.jsp`, `OrderHistoryServlet.java` |
+| Admin dashboard | Covered | `admin/dashboard.jsp`, `AdminDashboardServlet.java` |
+| Admin food add/edit/delete | Covered | `admin/foods.jsp`, `AdminFoodServlet.java` |
+| Admin category add/edit/delete | Covered | `admin/categories.jsp`, `AdminCategoryServlet.java` |
+| Admin order status update | Covered | `admin/orders.jsp`, `AdminOrderServlet.java` |
+| MySQL/JDBC/DAO | Covered | `database/schema.sql`, `store/*Dao.java` |
+| Static About/FAQ/Contact pages | Covered | `StaticPageServlet.java`, `about.jsp`, `faq.jsp`, `contact.jsp` |
+
 ## Notes
 
 - `setup_user.sql` should be executed by a MySQL account with permission to create users and grant privileges.
@@ -272,3 +338,4 @@ Important session/request names:
 - `seed.sql` inserts the demo data used for testing and presentation.
 - The shopping cart is handled in the session during browsing and checkout.
 - Confirmed orders are stored permanently in the MySQL database.
+- The current shell environment used for this update does not provide `java` or `javac`, so final compilation should be checked in Eclipse/Tomcat.

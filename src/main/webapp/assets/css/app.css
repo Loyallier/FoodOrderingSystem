@@ -1595,6 +1595,12 @@ textarea {
   width: 100%;
 }
 
+select,
+select option {
+  background: #fff;
+  color: #111;
+}
+
 input:focus,
 select:focus,
 textarea:focus {

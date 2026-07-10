@@ -5,7 +5,7 @@ request.setAttribute("pageTitle", "Login & Register");
 
 <section class="auth-page">
   <div class="auth-shell">
-    <form class="auth-card" action="<%= ctx %>/RegisterServlet" method="post" onsubmit="return requireFields(this, ['username','email','phone_number','password'])">
+    <form class="auth-card" action="<%= ctx %>/RegisterServlet" method="post" onsubmit="return validateRegisterForm(this)">
       <h1>Register</h1>
       <p class="muted">Create an account before checkout.</p>
       <% if (request.getAttribute("registerError") != null) { %>

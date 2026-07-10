@@ -26,7 +26,7 @@ private String h(Object value) {
   <a class="btn secondary" href="<%= ctx %>/admin/orders">Orders</a>
 </div>
 
-<form class="form" action="<%= ctx %>/admin/categories" method="post">
+<form class="form" action="<%= ctx %>/admin/categories" method="post" onsubmit="return validateCategoryForm(this)">
   <div class="section-title compact-title">
     <h2><%= editingCategory ? "Edit Category" : "Add Category" %></h2>
     <% if (editingCategory) { %>

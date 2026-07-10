@@ -19,7 +19,7 @@ Cart checkoutCart = (Cart) session.getAttribute("cart");
     <h3>Total: RM <%= checkoutCart.getTotalAmount() %></h3>
   </section>
 
-  <form class="form" action="<%= ctx %>/CheckoutServlet" method="post" onsubmit="return requireFields(this, ['delivery_address','contact_phone','payment_method'])">
+  <form class="form" action="<%= ctx %>/CheckoutServlet" method="post" onsubmit="return validateCheckoutForm(this)">
     <div class="field">
       <label for="delivery_address">Delivery Address</label>
       <textarea id="delivery_address" name="delivery_address"></textarea>

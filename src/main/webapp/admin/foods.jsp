@@ -27,7 +27,7 @@ private String h(Object value) {
   <a class="btn secondary" href="<%= ctx %>/admin/orders">Orders</a>
 </div>
 
-<form class="form wide" action="<%= ctx %>/AdminSaveFoodServlet" method="post" enctype="multipart/form-data">
+<form class="form wide" action="<%= ctx %>/AdminSaveFoodServlet" method="post" enctype="multipart/form-data" onsubmit="return validateFoodForm(this)">
   <div class="section-title compact-title">
     <h2><%= editingFood ? "Edit Food" : "Add Food" %></h2>
     <% if (editingFood) { %>
