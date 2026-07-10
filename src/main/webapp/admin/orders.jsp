@@ -43,12 +43,12 @@ List<Order> globalOrderList = (List<Order>) request.getAttribute("globalOrderLis
             <td><%= order.getOrderTime() %></td>
             <td><%= order.getOrderStatus() %> / <%= order.getPaymentStatus() %></td>
             <td>
-              <form action="<%= ctx %>/admin/orders" method="post" style="margin-bottom:8px;">
+              <form action="<%= ctx %>/AdminOrderServlet" method="post" style="margin-bottom:8px;">
                 <input type="hidden" name="orderId" value="<%= order.getOrderId() %>">
                 <input type="hidden" name="status" value="COMPLETED">
                 <button class="btn" type="submit">Complete</button>
               </form>
-              <form action="<%= ctx %>/admin/orders" method="post">
+              <form action="<%= ctx %>/AdminOrderServlet" method="post">
                 <input type="hidden" name="orderId" value="<%= order.getOrderId() %>">
                 <input type="hidden" name="status" value="CANCELLED">
                 <button class="btn danger" type="submit">Cancel</button>

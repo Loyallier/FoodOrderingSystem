@@ -11,7 +11,7 @@ List<Food> popularFoodList = (List<Food>) request.getAttribute("popularFoodList"
     <h1>Fresh meals ready for campus delivery.</h1>
     <p>Browse categorized dishes, review ingredients and nutrition, customize add-ons, and place your order in one clean flow.</p>
     <div class="actions">
-      <a class="btn" href="<%= ctx %>/menu">Start Ordering</a>
+      <a class="btn" href="<%= ctx %>/MenuServlet">Start Ordering</a>
       <a class="btn secondary" href="#about">About Us</a>
     </div>
     <div class="inline-links">
@@ -25,7 +25,7 @@ List<Food> popularFoodList = (List<Food>) request.getAttribute("popularFoodList"
 
 <div class="section-title">
   <h2>Featured Dishes</h2>
-  <a class="muted" href="<%= ctx %>/menu">View full menu</a>
+  <a class="muted" href="<%= ctx %>/MenuServlet">View full menu</a>
 </div>
 <div class="grid">
   <% for (Food food : featuredFoodList) { %>

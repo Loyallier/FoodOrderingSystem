@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/checkout")
+@WebServlet({ "/checkout", "/CheckoutServlet" })
 public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -57,7 +57,7 @@ public class CheckoutServlet extends HttpServlet {
         request.setAttribute("orderId", order.getOrderId());
         request.setAttribute("estimatedTime", LocalTime.now().plusMinutes(35).toString());
         request.setAttribute("finalAmount", order.getTotalAmount());
-        WebUtil.forward(request, response, "order-confirmation.jsp");
+        WebUtil.forward(request, response, "orderSuccess.jsp");
     }
 
     private String trim(String value) {

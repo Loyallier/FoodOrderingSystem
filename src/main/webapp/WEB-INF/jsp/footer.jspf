@@ -22,8 +22,8 @@
     </div>
     <nav class="footer-nav" aria-label="Footer navigation">
       <a href="<%= ctx %>/home">Home</a>
-      <a href="<%= ctx %>/menu">Menu</a>
-      <a href="<%= ctx %>/cart">Cart</a>
+      <a href="<%= ctx %>/MenuServlet">Menu</a>
+      <a href="<%= ctx %>/CartServlet">Cart</a>
       <a href="<%= ctx %>/orders/history">Orders</a>
       <a href="<%= ctx %>/login">Login &amp; Register</a>
     </nav>

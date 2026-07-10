@@ -13,14 +13,20 @@ public class OrderItem {
     private BigDecimal subtotal;
 
     public OrderItem(int orderItemId, CartItem item) {
+        this(orderItemId, item.getFoodId(), item.getFoodName(), item.getUnitPrice(), item.getQuantity(),
+                item.getAddons(), item.getAddonPrice(), item.getSubtotal());
+    }
+
+    public OrderItem(int orderItemId, int foodId, String foodName, BigDecimal unitPrice, int quantity,
+            String addons, BigDecimal addonPrice, BigDecimal subtotal) {
         this.orderItemId = orderItemId;
-        this.foodId = item.getFoodId();
-        this.foodName = item.getFoodName();
-        this.unitPrice = item.getUnitPrice();
-        this.quantity = item.getQuantity();
-        this.addons = item.getAddons();
-        this.addonPrice = item.getAddonPrice();
-        this.subtotal = item.getSubtotal();
+        this.foodId = foodId;
+        this.foodName = foodName;
+        this.unitPrice = unitPrice;
+        this.quantity = quantity;
+        this.addons = addons == null ? "" : addons;
+        this.addonPrice = addonPrice == null ? BigDecimal.ZERO : addonPrice;
+        this.subtotal = subtotal == null ? BigDecimal.ZERO : subtotal;
     }
 
     public int getOrderItemId() {

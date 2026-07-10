@@ -5,7 +5,7 @@ request.setAttribute("pageTitle", "Login & Register");
 
 <section class="auth-page">
   <div class="auth-shell">
-    <form class="auth-card" action="<%= ctx %>/login" method="post" onsubmit="return requireFields(this, ['loginKey','password'])">
+    <form class="auth-card" action="<%= ctx %>/LoginServlet" method="post" onsubmit="return requireFields(this, ['loginKey','password'])">
       <h1>Login</h1>
       <p class="muted">Welcome back. Sign in to continue ordering.</p>
       <% if (request.getAttribute("loginError") != null) { %>

@@ -7,7 +7,7 @@ Cart cart = (Cart) session.getAttribute("cart");
 
 <div class="section-title">
   <h2>Cart</h2>
-  <a class="btn secondary" href="<%= ctx %>/menu">Continue Ordering</a>
+  <a class="btn secondary" href="<%= ctx %>/MenuServlet">Continue Ordering</a>
 </div>
 
 <% if (cart == null || cart.isEmpty()) { %>
@@ -32,18 +32,20 @@ Cart cart = (Cart) session.getAttribute("cart");
             <td><%= item.getAddons().isBlank() ? "None" : item.getAddons() %></td>
             <td>RM <%= item.getUnitPrice() %> + RM <%= item.getAddonPrice() %></td>
             <td>
-              <form action="<%= ctx %>/cart" method="post" onsubmit="return validateQuantity(this)">
+              <form action="<%= ctx %>/UpdateCartServlet" method="post" onsubmit="return validateQuantity(this)">
                 <input type="hidden" name="action" value="update">
                 <input type="hidden" name="foodId" value="<%= item.getFoodId() %>">
+                <input type="hidden" name="lineId" value="<%= item.getLineId() %>">
                 <input type="number" name="quantity" value="<%= item.getQuantity() %>" min="1" style="width:90px;">
                 <button class="btn secondary" type="submit">Update</button>
               </form>
             </td>
             <td>RM <%= item.getSubtotal() %></td>
             <td>
-              <form action="<%= ctx %>/cart" method="post">
+              <form action="<%= ctx %>/CartServlet" method="post">
                 <input type="hidden" name="action" value="remove">
                 <input type="hidden" name="foodId" value="<%= item.getFoodId() %>">
+                <input type="hidden" name="lineId" value="<%= item.getLineId() %>">
                 <button class="btn danger" type="submit">Remove</button>
               </form>
             </td>
@@ -54,7 +56,7 @@ Cart cart = (Cart) session.getAttribute("cart");
   </div>
   <h3>Total: RM <%= cart.getTotalAmount() %></h3>
   <div class="actions">
-    <a class="btn" href="<%= ctx %>/checkout">Checkout</a>
+    <a class="btn" href="<%= ctx %>/CheckoutServlet">Checkout</a>
   </div>
 <% } %>
 

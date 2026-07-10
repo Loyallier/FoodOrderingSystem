@@ -33,17 +33,25 @@ public class Order {
 
     public Order(int orderId, User user, String deliveryAddress, String contactPhone, String paymentMethod,
             BigDecimal totalAmount, List<OrderItem> items) {
+        this(orderId, user.getUserId(), user.getUsername(), deliveryAddress, contactPhone, paymentMethod,
+                OrderStatus.CONFIRMED, PaymentStatus.PAID, totalAmount, LocalDateTime.now(), null, items);
+    }
+
+    public Order(int orderId, int userId, String customerName, String deliveryAddress, String contactPhone,
+            String paymentMethod, OrderStatus orderStatus, PaymentStatus paymentStatus, BigDecimal totalAmount,
+            LocalDateTime orderTime, LocalDateTime completedTime, List<OrderItem> items) {
         this.orderId = orderId;
-        this.userId = user.getUserId();
-        this.customerName = user.getUsername();
+        this.userId = userId;
+        this.customerName = customerName;
         this.deliveryAddress = deliveryAddress;
         this.contactPhone = contactPhone;
         this.paymentMethod = paymentMethod;
-        this.orderStatus = OrderStatus.CONFIRMED;
-        this.paymentStatus = PaymentStatus.PAID;
+        this.orderStatus = orderStatus;
+        this.paymentStatus = paymentStatus;
         this.totalAmount = totalAmount;
-        this.orderTime = LocalDateTime.now();
-        this.items = items;
+        this.orderTime = orderTime;
+        this.completedTime = completedTime;
+        this.items = items == null ? new ArrayList<>() : items;
     }
 
     public int getOrderId() {
@@ -99,5 +107,9 @@ public class Order {
         if (orderStatus == OrderStatus.COMPLETED) {
             this.completedTime = LocalDateTime.now();
         }
+    }
+
+    public void setItems(List<OrderItem> items) {
+        this.items = items == null ? new ArrayList<>() : items;
     }
 }
