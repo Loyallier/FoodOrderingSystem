@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet({ "/about", "/faq", "/contact" })
+@WebServlet({ "/about", "/faq", "/contact", "/promotions" })
 public class StaticPageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -18,6 +18,8 @@ public class StaticPageServlet extends HttpServlet {
             WebUtil.forward(request, response, "about.jsp");
         } else if ("/faq".equals(path)) {
             WebUtil.forward(request, response, "faq.jsp");
+        } else if ("/promotions".equals(path)) {
+            WebUtil.forward(request, response, "promotions.jsp");
         } else {
             WebUtil.forward(request, response, "contact.jsp");
         }

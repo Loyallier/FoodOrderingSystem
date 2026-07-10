@@ -64,41 +64,41 @@ List<Food> popularFoodList = (List<Food>) request.getAttribute("popularFoodList"
 
 <section id="about" class="section-band reveal">
   <div class="section-title">
-    <h2>Designed For Easy Ordering</h2>
+    <h2>About MellowBite</h2>
+    <a class="muted" href="<%= ctx %>/about">Read our story</a>
   </div>
-  <div class="info-columns">
-    <article class="info-card">
-      <h3>Scan</h3>
-      <p class="muted">Large food photos, clear pricing, and quick category filters keep the menu easy to browse.</p>
+  <div class="home-about-panel">
+    <article class="story-card">
+      <p class="eyebrow">Warm, fast, fresh</p>
+      <h2>Built for easy meals and confident choices.</h2>
+      <p class="muted">MellowBite pairs large food photos, clear item details, quick cart controls, and a calm checkout flow for restaurant customers.</p>
     </article>
-    <article class="info-card">
-      <h3>Customize</h3>
-      <p class="muted">Choose quantity and add-ons from a focused detail page before adding to cart.</p>
-    </article>
-    <article class="info-card">
-      <h3>Checkout</h3>
-      <p class="muted">Review your order, confirm the total, and complete the simulated payment flow cleanly.</p>
-    </article>
+    <div class="mini-stats">
+      <span><strong>500+</strong> Menu Items</span>
+      <span><strong>20K+</strong> Happy Customers</span>
+      <span><strong>4.9</strong> Average Rating</span>
+    </div>
   </div>
 </section>
 
 <section id="faq" class="section-band reveal">
   <div class="section-title">
     <h2>FAQ</h2>
+    <a class="muted" href="<%= ctx %>/faq">View all answers</a>
   </div>
-  <div class="info-columns">
-    <article class="info-card">
-      <h3>Do I need an account?</h3>
-      <p class="muted">Guests can browse the menu. Login is required before adding items to cart or checking out.</p>
-    </article>
-    <article class="info-card">
-      <h3>Is payment real?</h3>
-      <p class="muted">No. Payment is simulated for this coursework system. Successful checkout records the order as paid.</p>
-    </article>
-    <article class="info-card">
-      <h3>Can I change my cart?</h3>
-      <p class="muted">Yes. Users can update item quantities, remove dishes, and review the final amount before checkout.</p>
-    </article>
+  <div class="faq-accordion">
+    <details class="faq-item" open>
+      <summary><span class="card-icon">AC</span> Do I need an account?</summary>
+      <p>Guests can browse the menu. Login is required before adding items to cart or checking out.</p>
+    </details>
+    <details class="faq-item">
+      <summary><span class="card-icon">PY</span> Is payment real?</summary>
+      <p>Payment is simulated for this coursework system. Successful checkout records the order as paid.</p>
+    </details>
+    <details class="faq-item">
+      <summary><span class="card-icon">CT</span> Can I change my cart?</summary>
+      <p>Yes. Users can update item quantities, remove dishes, and review the final amount before checkout.</p>
+    </details>
   </div>
 </section>
 
