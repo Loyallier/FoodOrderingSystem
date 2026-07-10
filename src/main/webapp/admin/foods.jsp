@@ -84,7 +84,6 @@ private String h(Object value) {
         <label>Food Image</label>
         <input name="foodImage" type="file" accept="image/*">
       </div>
-      <label><input type="checkbox" name="isAvailable" <%= !editingFood || editFood.isAvailable() ? "checked" : "" %> style="width:auto;min-height:auto;"> Available</label>
       <label><input type="checkbox" name="isFeatured" <%= editingFood && editFood.isFeatured() ? "checked" : "" %> style="width:auto;min-height:auto;"> Featured</label>
       <label><input type="checkbox" name="isPopular" <%= editingFood && editFood.isPopular() ? "checked" : "" %> style="width:auto;min-height:auto;"> Popular</label>
     </div>
@@ -102,7 +101,6 @@ private String h(Object value) {
         <th>Category</th>
         <th>Price</th>
         <th>Rating</th>
-        <th>Status</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -114,16 +112,10 @@ private String h(Object value) {
           <td><%= h(food.getCategoryName()) %></td>
           <td>RM <%= food.getPrice() %></td>
           <td><%= food.getRating() %></td>
-          <td><%= food.isAvailable() ? "Available" : "Disabled" %></td>
           <td>
             <div class="inline-actions">
               <a class="btn secondary" href="<%= ctx %>/admin/foods?editFoodId=<%= food.getFoodId() %>">Edit</a>
-              <form action="<%= ctx %>/AdminDeleteFoodServlet" method="post">
-                <input type="hidden" name="action" value="disable">
-                <input type="hidden" name="foodId" value="<%= food.getFoodId() %>">
-                <button class="btn danger" type="submit">Disable</button>
-              </form>
-              <form action="<%= ctx %>/AdminRemoveFoodServlet" method="post" onsubmit="return confirm('Delete this food item permanently? Use Disable if it has order history.')">
+              <form action="<%= ctx %>/AdminRemoveFoodServlet" method="post" onsubmit="return confirm('Delete this food item permanently?')">
                 <input type="hidden" name="action" value="delete">
                 <input type="hidden" name="foodId" value="<%= food.getFoodId() %>">
                 <button class="btn danger ghost-danger" type="submit">Delete</button>

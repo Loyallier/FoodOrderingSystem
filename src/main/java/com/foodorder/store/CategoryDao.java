@@ -31,6 +31,14 @@ public class CategoryDao {
         }
     }
 
+    public void save(int categoryId, String name, String description) {
+        if (categoryId > 0 && find(categoryId).isPresent()) {
+            update(categoryId, name, description);
+            return;
+        }
+        create(name, description, true);
+    }
+
     public List<Category> list(boolean onlyAvailable) {
         String sql = "SELECT category_id, category_name, description, available FROM categories"
                 + (onlyAvailable ? " WHERE available = 1" : "")
@@ -61,14 +69,27 @@ public class CategoryDao {
         }
     }
 
-    public void disable(int categoryId) {
-        String sql = "UPDATE categories SET available = 0 WHERE category_id = ?";
+    public void delete(int categoryId) {
+        String sql = "DELETE FROM categories WHERE category_id = ?";
         try (Connection connection = DbUtil.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, categoryId);
             statement.executeUpdate();
         } catch (SQLException ex) {
-            throw new DataAccessException("Failed to disable category.", ex);
+            throw new DataAccessException("Failed to delete category.", ex);
+        }
+    }
+
+    private void update(int categoryId, String name, String description) {
+        String sql = "UPDATE categories SET category_name = ?, description = ? WHERE category_id = ?";
+        try (Connection connection = DbUtil.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, name);
+            statement.setString(2, description);
+            statement.setInt(3, categoryId);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DataAccessException("Failed to update category.", ex);
         }
     }
 

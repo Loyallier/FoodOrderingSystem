@@ -24,7 +24,6 @@ int cartCount = navCart == null ? 0 : navCart.getTotalQuantity();
     <div class="nav-links">
       <a href="<%= ctx %>/home">Home</a>
       <a href="<%= ctx %>/MenuServlet">Menu</a>
-      <a href="<%= ctx %>/promotions">Promotions</a>
       <a class="cart-link" href="<%= ctx %>/CartServlet">Cart <span><%= cartCount %></span></a>
       <a href="<%= ctx %>/orders/history">Orders</a>
       <% if (currentUser == null) { %>

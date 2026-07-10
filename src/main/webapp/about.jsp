@@ -6,7 +6,7 @@ request.setAttribute("pageTitle", "About - MellowBite");
 <section class="about-hero reveal">
   <div class="about-hero-copy">
     <p class="eyebrow">About MellowBite</p>
-    <h1>Warm fast-food favorites with a calmer ordering flow.</h1>
+    <h1>Warm premium dining favorites with a calmer ordering flow.</h1>
     <p>MellowBite brings together clear menu browsing, generous food photography, fresh ingredients, and a simple checkout experience for busy customers.</p>
     <div class="actions">
       <a class="btn" href="<%= ctx %>/MenuServlet">Order Now</a>

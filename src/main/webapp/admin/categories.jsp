@@ -2,6 +2,20 @@
 <%
 request.setAttribute("pageTitle", "Admin Categories");
 List<Category> adminCategoryList = (List<Category>) request.getAttribute("adminCategoryList");
+Category editCategory = (Category) request.getAttribute("editCategory");
+boolean editingCategory = editCategory != null;
+%>
+<%!
+private String h(Object value) {
+    if (value == null) {
+        return "";
+    }
+    return value.toString()
+            .replace("&", "&amp;")
+            .replace("\"", "&quot;")
+            .replace("<", "&lt;")
+            .replace(">", "&gt;");
+}
 %>
 <%@ include file="/WEB-INF/jsp/header.jspf" %>
 
@@ -13,35 +27,43 @@ List<Category> adminCategoryList = (List<Category>) request.getAttribute("adminC
 </div>
 
 <form class="form" action="<%= ctx %>/admin/categories" method="post">
-  <h2>Add Category</h2>
+  <div class="section-title compact-title">
+    <h2><%= editingCategory ? "Edit Category" : "Add Category" %></h2>
+    <% if (editingCategory) { %>
+      <a class="btn secondary" href="<%= ctx %>/admin/categories">Cancel Edit</a>
+    <% } %>
+  </div>
+  <input type="hidden" name="categoryId" value="<%= editingCategory ? editCategory.getCategoryId() : "" %>">
   <div class="field">
     <label>Category Name</label>
-    <input name="categoryName">
+    <input name="categoryName" value="<%= editingCategory ? h(editCategory.getCategoryName()) : "" %>">
   </div>
   <div class="field">
     <label>Description</label>
-    <textarea name="description"></textarea>
+    <textarea name="description"><%= editingCategory ? h(editCategory.getDescription()) : "" %></textarea>
   </div>
-  <button class="btn" type="submit">Add Category</button>
+  <button class="btn" type="submit"><%= editingCategory ? "Save Changes" : "Add Category" %></button>
 </form>
 
 <div class="section-title"><h2>Category List</h2></div>
 <div class="table-wrap">
   <table>
-    <thead><tr><th>ID</th><th>Name</th><th>Description</th><th>Status</th><th>Action</th></tr></thead>
+    <thead><tr><th>ID</th><th>Name</th><th>Description</th><th>Action</th></tr></thead>
     <tbody>
       <% for (Category category : adminCategoryList) { %>
         <tr>
           <td><%= category.getCategoryId() %></td>
-          <td><%= category.getCategoryName() %></td>
-          <td><%= category.getDescription() %></td>
-          <td><%= category.isAvailable() ? "Available" : "Disabled" %></td>
+          <td><%= h(category.getCategoryName()) %></td>
+          <td><%= h(category.getDescription()) %></td>
           <td>
-            <form action="<%= ctx %>/admin/categories" method="post">
-              <input type="hidden" name="action" value="disable">
-              <input type="hidden" name="categoryId" value="<%= category.getCategoryId() %>">
-              <button class="btn danger" type="submit">Disable</button>
-            </form>
+            <div class="inline-actions">
+              <a class="btn secondary" href="<%= ctx %>/admin/categories?editCategoryId=<%= category.getCategoryId() %>">Edit</a>
+              <form action="<%= ctx %>/admin/categories" method="post" onsubmit="return confirm('Delete this category permanently?')">
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="categoryId" value="<%= category.getCategoryId() %>">
+                <button class="btn danger ghost-danger" type="submit">Delete</button>
+              </form>
+            </div>
           </td>
         </tr>
       <% } %>

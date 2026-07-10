@@ -55,8 +55,12 @@ public final class AppStore {
         return CATEGORY_DAO.find(categoryId);
     }
 
-    public static void disableCategory(int categoryId) {
-        CATEGORY_DAO.disable(categoryId);
+    public static void saveCategory(int categoryId, String name, String description) {
+        CATEGORY_DAO.save(categoryId, name, description);
+    }
+
+    public static void deleteCategory(int categoryId) {
+        CATEGORY_DAO.delete(categoryId);
     }
 
     public static Food addFood(String foodName, int categoryId, String description, String ingredients,
@@ -71,10 +75,6 @@ public final class AppStore {
             boolean available, boolean featured, boolean popular) {
         FOOD_DAO.save(foodId, foodName, categoryId, description, ingredients, nutrition, price, rating, imageUrl,
                 available, featured, popular);
-    }
-
-    public static void disableFood(int foodId) {
-        FOOD_DAO.disable(foodId);
     }
 
     public static void deleteFood(int foodId) {

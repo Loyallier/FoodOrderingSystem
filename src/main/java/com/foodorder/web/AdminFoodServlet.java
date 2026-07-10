@@ -19,8 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @MultipartConfig
-@WebServlet({ "/admin/foods", "/AdminMenuServlet", "/AdminSaveFoodServlet", "/AdminDeleteFoodServlet",
-        "/AdminRemoveFoodServlet" })
+@WebServlet({ "/admin/foods", "/AdminMenuServlet", "/AdminSaveFoodServlet", "/AdminRemoveFoodServlet" })
 public class AdminFoodServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -28,15 +27,7 @@ public class AdminFoodServlet extends HttpServlet {
         if (!WebUtil.requireAdmin(request, response)) {
             return;
         }
-        if ("/AdminDeleteFoodServlet".equals(request.getServletPath())) {
-            disableFood(request, response);
-            return;
-        }
         String action = request.getParameter("action");
-        if ("disable".equals(action)) {
-            disableFood(request, response);
-            return;
-        }
         if ("delete".equals(action)) {
             deleteFood(request, response);
             return;
@@ -50,7 +41,6 @@ public class AdminFoodServlet extends HttpServlet {
         BigDecimal price = WebUtil.decimalParam(request, "price", BigDecimal.ZERO);
         double rating = WebUtil.decimalParam(request, "rating", new BigDecimal("4.0")).doubleValue();
         String imageUrl = resolveImageUrl(request);
-        boolean available = WebUtil.checkbox(request, "isAvailable");
         boolean featured = WebUtil.checkbox(request, "isFeatured");
         boolean popular = WebUtil.checkbox(request, "isPopular");
 
@@ -60,7 +50,7 @@ public class AdminFoodServlet extends HttpServlet {
         }
         int foodId = WebUtil.intParam(request, "foodId", 0);
         AppStore.saveFood(foodId, foodName, categoryId, description, ingredients, nutrition, price, rating,
-                imageUrl, available, featured, popular);
+                imageUrl, true, featured, popular);
         String message = foodId > 0 ? "Food item edited successfully." : "Food item added successfully.";
         WebUtil.redirectWithMessage(request, response, "/admin/foods", "success", message);
     }
@@ -69,10 +59,6 @@ public class AdminFoodServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         if (!WebUtil.requireAdmin(request, response)) {
-            return;
-        }
-        if ("/AdminDeleteFoodServlet".equals(request.getServletPath())) {
-            disableFood(request, response);
             return;
         }
         try {
@@ -90,12 +76,6 @@ public class AdminFoodServlet extends HttpServlet {
         }
     }
 
-    private void disableFood(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int foodId = WebUtil.intParam(request, "foodId", 0);
-        AppStore.disableFood(foodId);
-        WebUtil.redirectWithMessage(request, response, "/admin/foods", "success", "Food item disabled successfully.");
-    }
-
     private void deleteFood(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int foodId = WebUtil.intParam(request, "foodId", 0);
         if (foodId <= 0) {
@@ -107,7 +87,7 @@ public class AdminFoodServlet extends HttpServlet {
             WebUtil.redirectWithMessage(request, response, "/admin/foods", "success", "Food item deleted successfully.");
         } catch (DataAccessException ex) {
             WebUtil.redirectWithMessage(request, response, "/admin/foods", "error",
-                    "Food item could not be deleted because it is used by existing orders. Disable it instead.");
+                    "Food item could not be deleted because it is used by existing orders.");
         }
     }
 

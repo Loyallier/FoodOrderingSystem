@@ -61,17 +61,6 @@ public class FoodDao {
                 featured, popular);
     }
 
-    public void disable(int foodId) {
-        String sql = "UPDATE foods SET available = 0 WHERE food_id = ?";
-        try (Connection connection = DbUtil.getConnection();
-                PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, foodId);
-            statement.executeUpdate();
-        } catch (SQLException ex) {
-            throw new DataAccessException("Failed to disable food.", ex);
-        }
-    }
-
     public void delete(int foodId) {
         String sql = "DELETE FROM foods WHERE food_id = ?";
         try (Connection connection = DbUtil.getConnection();
