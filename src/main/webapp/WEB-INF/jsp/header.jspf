@@ -10,18 +10,21 @@ int cartCount = navCart == null ? 0 : navCart.getTotalQuantity();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= request.getAttribute("pageTitle") == null ? "Food Ordering System" : request.getAttribute("pageTitle") %></title>
+  <title><%= request.getAttribute("pageTitle") == null ? "MellowBite" : request.getAttribute("pageTitle") %></title>
   <link rel="stylesheet" href="<%= ctx %>/assets/css/app.css">
   <script defer src="<%= ctx %>/assets/js/app.js"></script>
 </head>
 <body>
 <header class="topbar">
   <nav class="nav">
-    <a class="brand" href="<%= ctx %>/home">Food Ordering</a>
+    <a class="brand" href="<%= ctx %>/home" aria-label="MellowBite home">
+      <span class="brand-mark">M</span>
+      <span>MellowBite</span>
+    </a>
     <div class="nav-links">
       <a href="<%= ctx %>/home">Home</a>
       <a href="<%= ctx %>/MenuServlet">Menu</a>
-      <a href="<%= ctx %>/CartServlet">Cart (<%= cartCount %>)</a>
+      <a class="cart-link" href="<%= ctx %>/CartServlet">Cart <span><%= cartCount %></span></a>
       <a href="<%= ctx %>/orders/history">Orders</a>
       <% if (currentUser == null) { %>
         <a href="<%= ctx %>/login">Login</a>
@@ -29,7 +32,7 @@ int cartCount = navCart == null ? 0 : navCart.getTotalQuantity();
         <% if (currentUser.isAdmin()) { %>
           <a href="<%= ctx %>/admin/dashboard">Admin</a>
         <% } %>
-        <span><%= currentUser.getUsername() %> / <%= currentUser.getRole() %></span>
+        <span class="user-chip"><%= currentUser.getUsername() %> / <%= currentUser.getRole() %></span>
         <a href="<%= ctx %>/logout">Logout</a>
       <% } %>
     </div>

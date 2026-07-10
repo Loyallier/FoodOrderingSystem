@@ -1,9 +1,9 @@
 <%
-request.setAttribute("pageTitle", "FAQ");
+request.setAttribute("pageTitle", "FAQ - MellowBite");
 %>
 <%@ include file="/WEB-INF/jsp/header.jspf" %>
 
-<section class="form wide">
+<section class="form wide reveal">
   <h1>FAQ</h1>
   <h3>Do I need an account to order?</h3>
   <p>Yes. Guests can browse the menu, but checkout requires login.</p>

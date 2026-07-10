@@ -72,6 +72,17 @@ public class FoodDao {
         }
     }
 
+    public void delete(int foodId) {
+        String sql = "DELETE FROM foods WHERE food_id = ?";
+        try (Connection connection = DbUtil.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, foodId);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            throw new DataAccessException("Failed to delete food.", ex);
+        }
+    }
+
     public List<Food> list(boolean onlyAvailable) {
         String sql = "SELECT " + FOOD_COLUMNS + " FROM foods f JOIN categories c ON f.category_id = c.category_id"
                 + (onlyAvailable ? " WHERE f.available = 1" : "")

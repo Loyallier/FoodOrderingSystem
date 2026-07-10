@@ -77,6 +77,10 @@ public final class AppStore {
         FOOD_DAO.disable(foodId);
     }
 
+    public static void deleteFood(int foodId) {
+        FOOD_DAO.delete(foodId);
+    }
+
     public static List<Food> listFoods(boolean onlyAvailable) {
         return FOOD_DAO.list(onlyAvailable);
     }

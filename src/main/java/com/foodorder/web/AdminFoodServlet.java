@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 import com.foodorder.store.AppStore;
+import com.foodorder.store.DataAccessException;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -18,7 +19,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @MultipartConfig
-@WebServlet({ "/admin/foods", "/AdminMenuServlet", "/AdminSaveFoodServlet", "/AdminDeleteFoodServlet" })
+@WebServlet({ "/admin/foods", "/AdminMenuServlet", "/AdminSaveFoodServlet", "/AdminDeleteFoodServlet",
+        "/AdminRemoveFoodServlet" })
 public class AdminFoodServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -33,6 +35,10 @@ public class AdminFoodServlet extends HttpServlet {
         String action = request.getParameter("action");
         if ("disable".equals(action)) {
             disableFood(request, response);
+            return;
+        }
+        if ("delete".equals(action)) {
+            deleteFood(request, response);
             return;
         }
 
@@ -55,7 +61,8 @@ public class AdminFoodServlet extends HttpServlet {
         int foodId = WebUtil.intParam(request, "foodId", 0);
         AppStore.saveFood(foodId, foodName, categoryId, description, ingredients, nutrition, price, rating,
                 imageUrl, available, featured, popular);
-        WebUtil.redirectWithMessage(request, response, "/admin/foods", "success", "Food item updated successfully.");
+        String message = foodId > 0 ? "Food item edited successfully." : "Food item added successfully.";
+        WebUtil.redirectWithMessage(request, response, "/admin/foods", "success", message);
     }
 
     @Override
@@ -69,6 +76,10 @@ public class AdminFoodServlet extends HttpServlet {
             return;
         }
         try {
+            int editFoodId = WebUtil.intParam(request, "editFoodId", 0);
+            if (editFoodId > 0) {
+                request.setAttribute("editFood", AppStore.findFood(editFoodId).orElse(null));
+            }
             request.setAttribute("adminFoodList", AppStore.listFoods(false));
             request.setAttribute("adminCategoryList", AppStore.listCategories(false));
             request.setAttribute("successMessage", request.getParameter("success"));
@@ -83,6 +94,21 @@ public class AdminFoodServlet extends HttpServlet {
         int foodId = WebUtil.intParam(request, "foodId", 0);
         AppStore.disableFood(foodId);
         WebUtil.redirectWithMessage(request, response, "/admin/foods", "success", "Food item disabled successfully.");
+    }
+
+    private void deleteFood(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int foodId = WebUtil.intParam(request, "foodId", 0);
+        if (foodId <= 0) {
+            WebUtil.redirectWithMessage(request, response, "/admin/foods", "error", "Food item is required for delete.");
+            return;
+        }
+        try {
+            AppStore.deleteFood(foodId);
+            WebUtil.redirectWithMessage(request, response, "/admin/foods", "success", "Food item deleted successfully.");
+        } catch (DataAccessException ex) {
+            WebUtil.redirectWithMessage(request, response, "/admin/foods", "error",
+                    "Food item could not be deleted because it is used by existing orders. Disable it instead.");
+        }
     }
 
     private String resolveImageUrl(HttpServletRequest request) throws IOException, ServletException {

@@ -1,11 +1,12 @@
 <%
-request.setAttribute("pageTitle", "About Us");
+request.setAttribute("pageTitle", "About - MellowBite");
 %>
 <%@ include file="/WEB-INF/jsp/header.jspf" %>
 
-<section class="form wide">
-  <h1>About Us</h1>
-  <p>Food Ordering is a campus restaurant ordering system designed for quick menu browsing, transparent food information, and simple checkout.</p>
+<section class="form wide reveal">
+  <p class="eyebrow">About MellowBite</p>
+  <h1>Fresh fast food with a calmer ordering flow.</h1>
+  <p>MellowBite is designed for quick menu browsing, large food imagery, transparent food information, and simple checkout.</p>
   <p>The system displays categorized dishes, ingredients, nutrition information, ratings, prices, and customer order status. Administrators can manage food items and monitor customer orders from the dashboard.</p>
 </section>
 

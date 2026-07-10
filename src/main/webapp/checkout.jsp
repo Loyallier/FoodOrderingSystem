@@ -1,6 +1,6 @@
 <%@ page import="com.foodorder.model.Cart, com.foodorder.model.CartItem" %>
 <%
-request.setAttribute("pageTitle", "Checkout - Food Ordering");
+request.setAttribute("pageTitle", "Checkout - MellowBite");
 Cart checkoutCart = (Cart) session.getAttribute("cart");
 %>
 <%@ include file="/WEB-INF/jsp/header.jspf" %>

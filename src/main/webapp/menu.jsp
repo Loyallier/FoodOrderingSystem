@@ -1,6 +1,6 @@
 <%@ page import="java.util.List, com.foodorder.model.Category, com.foodorder.model.Food" %>
 <%
-request.setAttribute("pageTitle", "Menu - Food Ordering");
+request.setAttribute("pageTitle", "Menu - MellowBite");
 List<Category> categoryList = (List<Category>) request.getAttribute("categoryList");
 List<Food> foodList = (List<Food>) request.getAttribute("foodList");
 Integer selectedCategoryId = (Integer) request.getAttribute("selectedCategoryId");
@@ -10,10 +10,13 @@ if (selectedCategoryId == null) {
 %>
 <%@ include file="/WEB-INF/jsp/header.jspf" %>
 
-<div class="section-title">
-  <h2>Menu</h2>
-  <span class="muted">Ingredients, nutrition, prices, ratings, and add-ons are included.</span>
-</div>
+<section class="menu-header reveal">
+  <div>
+    <p class="eyebrow">Order faster</p>
+    <h1>Pick your next favorite.</h1>
+  </div>
+  <span class="muted">Fresh photos, clear prices, quick add-to-cart.</span>
+</section>
 
 <div class="filters">
   <a class="<%= selectedCategoryId == 0 ? "active" : "" %>" href="<%= ctx %>/MenuServlet">All</a>
@@ -28,13 +31,13 @@ if (selectedCategoryId == null) {
 <% } else { %>
   <div class="grid">
     <% for (Food food : foodList) { %>
-      <article class="card">
+      <article class="card food-card reveal">
         <img src="<%= food.getImageUrl() %>" alt="<%= food.getFoodName() %>">
         <div class="card-body">
           <h3><%= food.getFoodName() %></h3>
           <p class="muted"><%= food.getCategoryName() %></p>
           <p><%= food.getDescription() %></p>
-          <p><span class="price">RM <%= food.getPrice() %></span> <span class="rating">Rating <%= food.getRating() %></span></p>
+          <p class="card-meta"><span class="price">RM <%= food.getPrice() %></span> <span class="rating"><%= food.getRating() %> stars</span></p>
           <div class="actions">
             <a class="btn secondary" href="<%= ctx %>/food-detail?foodId=<%= food.getFoodId() %>">Details</a>
             <form action="<%= ctx %>/CartServlet" method="post" onsubmit="return validateQuantity(this)">

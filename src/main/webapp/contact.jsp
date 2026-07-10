@@ -1,17 +1,17 @@
 <%
-request.setAttribute("pageTitle", "Contact");
+request.setAttribute("pageTitle", "Contact - MellowBite");
 %>
 <%@ include file="/WEB-INF/jsp/header.jspf" %>
 
 <div class="split">
-  <section class="form">
+  <section class="form reveal">
     <h1>Contact Us</h1>
-    <p><strong>Address:</strong> XMUM Campus Restaurant, Malaysia</p>
+    <p><strong>Address:</strong> MellowBite Restaurant, Malaysia</p>
     <p><strong>Phone:</strong> +60 12-345 6789</p>
-    <p><strong>Email:</strong> support@foodordering.test</p>
+    <p><strong>Email:</strong> support@mellowbite.test</p>
   </section>
 
-  <form class="form" onsubmit="fakeContactSubmit(event)">
+  <form class="form reveal" onsubmit="fakeContactSubmit(event)">
     <div class="field">
       <label>Name</label>
       <input name="name">

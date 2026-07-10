@@ -1,14 +1,14 @@
   <footer class="site-footer">
     <div class="footer-inner">
       <section>
-        <h2>Food Ordering</h2>
-        <p>Campus meals, clear food details, simple cart control, and simulated checkout for the coursework restaurant system.</p>
+        <h2>MellowBite</h2>
+        <p>Warm fast-food favorites, generous photos, simple cart control, and a calm checkout flow.</p>
       </section>
       <section>
         <h3>Contact</h3>
-        <p>XMUM Campus Restaurant</p>
+        <p>MellowBite Restaurant</p>
         <p>+60 12-345 6789</p>
-        <p>support@foodordering.test</p>
+        <p>support@mellowbite.test</p>
       </section>
       <section>
         <h3>Quick Links</h3>
