@@ -28,9 +28,21 @@ INSERT INTO foods (food_id, food_name, category_id, description, ingredients, nu
   (15, 'Cold Brew Coffee', 3, 'Smooth cold brew coffee served over ice.', 'Coffee, water, ice', '35 kcal', 6.50, 4.6, 82, 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=80', 1, 0, 0),
   (16, 'Mango Sparkler', 3, 'Sparkling mango drink with citrus and mint.', 'Mango, soda water, lime, mint', '160 kcal', 6.90, 4.4, 58, 'https://images.unsplash.com/photo-1622597467836-f3285f2131b8?auto=format&fit=crop&w=900&q=80', 1, 0, 1),
   (17, 'Classic Cheesecake', 4, 'Smooth cheesecake with a buttery biscuit base.', 'Cream cheese, biscuit, butter, sugar', '410 kcal', 9.50, 4.7, 99, 'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=900&q=80', 1, 1, 0),
-  (18, 'Caramel Sundae', 4, 'Vanilla ice cream with warm caramel sauce.', 'Vanilla ice cream, caramel sauce, nuts', '330 kcal', 7.50, 4.6, 86, 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=900&q=80', 1, 0, 1);
+  (18, 'Caramel Sundae', 4, 'Vanilla ice cream with warm caramel sauce.', 'Vanilla ice cream, caramel sauce, nuts', '330 kcal', 7.50, 4.6, 86, 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=900&q=80', 1, 0, 1),
+  (19, 'BBQ Chicken Pizza', 1, 'Thin-crust pizza with smoky BBQ chicken and red onion.', 'Pizza dough, chicken, BBQ sauce, mozzarella, red onion', '720 kcal, 36g protein', 17.90, 4.6, 83, 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=80', 1, 1, 1),
+  (20, 'Garlic Butter Shrimp Rice', 1, 'Sauteed shrimp over warm rice with garlic butter sauce.', 'Shrimp, rice, garlic, butter, parsley', '610 kcal, 34g protein', 18.50, 4.7, 71, 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=900&q=80', 1, 0, 0),
+  (21, 'Veggie Avocado Wrap', 1, 'Soft tortilla wrap filled with avocado, greens, and roasted vegetables.', 'Tortilla, avocado, lettuce, bell pepper, yogurt sauce', '480 kcal, vegetarian', 12.90, 4.4, 49, 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=900&q=80', 1, 0, 0),
+  (22, 'Grilled Chicken Sandwich', 1, 'Grilled chicken breast with tomato, lettuce, and honey mustard.', 'Chicken breast, tomato, lettuce, honey mustard, bread', '560 kcal, 35g protein', 13.90, 4.5, 66, 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=900&q=80', 1, 0, 1),
+  (23, 'Onion Rings', 2, 'Crispy onion rings served with smoky dipping sauce.', 'Onion, batter, breadcrumbs, smoked sauce', '330 kcal', 7.50, 4.3, 52, 'https://images.unsplash.com/photo-1639024471283-03518883512d?auto=format&fit=crop&w=900&q=80', 1, 0, 0),
+  (24, 'Crispy Chicken Wings', 2, 'Crispy wings tossed in a mild spicy glaze.', 'Chicken wings, chili glaze, garlic, sesame', '520 kcal, 32g protein', 13.50, 4.8, 135, 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=900&q=80', 1, 1, 1),
+  (25, 'Mini Corn Dogs', 2, 'Golden mini corn dogs with tomato ketchup.', 'Sausage, cornmeal batter, ketchup', '410 kcal, 15g protein', 9.50, 4.4, 47, 'https://images.unsplash.com/photo-1613482084286-41f25b486fa2?auto=format&fit=crop&w=900&q=80', 1, 0, 0),
+  (26, 'Passion Fruit Soda', 3, 'Bright passion fruit soda with ice and lime.', 'Passion fruit, soda water, lime, ice', '150 kcal', 6.90, 4.5, 64, 'https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=80', 1, 0, 1),
+  (27, 'Matcha Latte', 3, 'Creamy iced matcha latte with fresh milk.', 'Matcha, milk, ice, sugar', '210 kcal', 7.50, 4.6, 79, 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=900&q=80', 1, 1, 0),
+  (28, 'Watermelon Cooler', 3, 'Refreshing watermelon drink with mint and crushed ice.', 'Watermelon, mint, lime, ice', '130 kcal', 6.20, 4.4, 55, 'https://images.unsplash.com/photo-1525385133512-2f3bdd039054?auto=format&fit=crop&w=900&q=80', 1, 0, 0),
+  (29, 'Tiramisu Cup', 4, 'Layered coffee cream dessert in a chilled cup.', 'Mascarpone, coffee, cocoa, sponge cake', '390 kcal', 10.90, 4.8, 112, 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=900&q=80', 1, 1, 1),
+  (30, 'Berry Waffle', 4, 'Warm waffle topped with berries, cream, and maple syrup.', 'Waffle, berries, cream, maple syrup', '460 kcal', 11.50, 4.7, 93, 'https://images.unsplash.com/photo-1562376552-0d160a2f238d?auto=format&fit=crop&w=900&q=80', 1, 0, 1);
 
 ALTER TABLE users AUTO_INCREMENT = 3;
 ALTER TABLE categories AUTO_INCREMENT = 5;
-ALTER TABLE foods AUTO_INCREMENT = 19;
+ALTER TABLE foods AUTO_INCREMENT = 31;
 ALTER TABLE orders AUTO_INCREMENT = 1001;
